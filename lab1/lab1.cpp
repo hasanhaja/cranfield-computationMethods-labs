@@ -1,5 +1,6 @@
 #include <functional>
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -27,10 +28,9 @@ std::vector<double> analyticalSolution(double start, double end, double deltax,
                                        std::function<double(double)> method) {
     std::vector<double> results;
 
-    for (double x = start; x <= end;) {
+    for (double x = start; x <= end; x += deltax) {
         double result = method(x);
         results.push_back(result);
-        x += deltax;
     }
 
     return results;
@@ -41,13 +41,26 @@ std::vector<double> finiteSolution(
     std::function<double(double, double)> method) {
     std::vector<double> results;
 
-    for (double x = start; x <= end;) {
+    for (double x = start; x <= end; x += deltax) {
         double result = method(x, deltax);
         results.push_back(result);
-        x += deltax;
     }
 
     return results;
+}
+
+std::map<double, std::vector<double>> generateSolution(
+    double start, double end, double deltax, int steps,
+    std::function<double(double, double)> method) {
+    std::map<double, std::vector<double>> dataset;
+
+    for (int i = 0; i < steps; i++) {
+        auto finiteResults = finiteSolution(start, end, deltax, method);
+        dataset[deltax] = finiteResults;
+        deltax /= 10.0;
+    }
+
+    return dataset;
 }
 
 void display(double in, double result) {
@@ -56,10 +69,18 @@ void display(double in, double result) {
 
 void show(std::string msg) { std::cout << msg << std::endl; }
 
+void printVec(std::vector<double> vec, std::string msg) {
+    show(msg);
+    for (auto result : vec) {
+        std::cout << result << std::endl;
+    }
+}
+
 int main() {
     double start = 0.0;
     double end = 1.0;
     double deltax = 0.1;
+    int steps = 5;
 
     auto actualResults = analyticalSolution(start, end, deltax, fPrime);
     auto forwardResults = finiteSolution(start, end, deltax, forwardDifference);
@@ -67,24 +88,15 @@ int main() {
         finiteSolution(start, end, deltax, backwardDifference);
     auto centralResults = finiteSolution(start, end, deltax, centralDifference);
 
-    show("Actual results:");
-    for (auto result : actualResults) {
-        std::cout << result << std::endl;
-    }
+    auto solution = generateSolution(start, end, deltax, 5, centralDifference);
 
-    show("Forward results:");
-    for (auto result : forwardResults) {
-        std::cout << result << std::endl;
-    }
+    auto first = solution[deltax];
 
-    show("Backward results:");
-    for (auto result : backwardResults) {
-        std::cout << result << std::endl;
-    }
+    for (auto answer : solution) {
+        std::vector<double> result = answer.second;
 
-    show("Central results:");
-    for (auto result : centralResults) {
-        std::cout << result << std::endl;
+        printVec(result, "Answers");
+        std::cout << "------------------" << std::endl;
     }
 
     return 0;
