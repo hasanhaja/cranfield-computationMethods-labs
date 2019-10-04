@@ -1,7 +1,3 @@
-/*
- * This file has been deprecated and the development of this task has moved
- * to the directory /mock-assessment.
- */
 #include <functional>
 #include <iostream>
 #include <map>
