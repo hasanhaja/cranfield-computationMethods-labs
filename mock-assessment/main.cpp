@@ -1,102 +1,63 @@
-#include <functional>
 #include <iostream>
 #include <map>
 #include <string>
-#include <vector>
+
+#include "solution.h"
 
 double f(double x) { return 3.0 * (x * x * x) + 2.0 * x + 1.0; }
 
 double fPrime(double x) { return 9.0 * (x * x) + 2.0; }
 
-double forwardDifference(double x, double deltax) {
-    return (f(x + deltax) - f(x)) / deltax;
-}
+// double measureAccuracy(double calculated, double analytical) {
+//     return analytical - calculated;
+// }
 
-double backwardDifference(double x, double deltax) {
-    return (f(x) - f(x - deltax)) / deltax;
-}
+// std::map<double, std::vector<double>> generateSolution(
+//     double start, double end, double deltax, int steps,
+//     std::function<double(double, double)> method) {
+//     std::map<double, std::vector<double>> dataset;
 
-double centralDifference(double x, double deltax) {
-    return (f(x + deltax) - f(x - deltax)) / (2.0 * deltax);
-}
+//     for (int i = 0; i < steps; i++) {
+//         auto finiteResults = finiteSolution(start, end, deltax, method);
+//         dataset[deltax] = finiteResults;
+//         deltax /= 10.0;
+//     }
 
-double measureAccuracy(double calculated, double analytical) {
-    return analytical - calculated;
-}
+//     return dataset;
+// }
 
-std::vector<double> analyticalSolution(double start, double end, double deltax,
-                                       std::function<double(double)> method) {
-    std::vector<double> results;
+// void display(double in, double result) {
+//     std::cout << "f(" << in << ") = " << result << std::endl;
+// }
 
-    for (double x = start; x <= end; x += deltax) {
-        double result = method(x);
-        results.push_back(result);
-    }
+// void show(std::string msg) { std::cout << msg << std::endl; }
 
-    return results;
-}
-
-std::vector<double> finiteSolution(
-    double start, double end, double deltax,
-    std::function<double(double, double)> method) {
-    std::vector<double> results;
-
-    for (double x = start; x <= end; x += deltax) {
-        double result = method(x, deltax);
-        results.push_back(result);
-    }
-
-    return results;
-}
-
-std::map<double, std::vector<double>> generateSolution(
-    double start, double end, double deltax, int steps,
-    std::function<double(double, double)> method) {
-    std::map<double, std::vector<double>> dataset;
-
-    for (int i = 0; i < steps; i++) {
-        auto finiteResults = finiteSolution(start, end, deltax, method);
-        dataset[deltax] = finiteResults;
-        deltax /= 10.0;
-    }
-
-    return dataset;
-}
-
-void display(double in, double result) {
-    std::cout << "f(" << in << ") = " << result << std::endl;
-}
-
-void show(std::string msg) { std::cout << msg << std::endl; }
-
-void printVec(std::vector<double> vec, std::string msg) {
-    show(msg);
-    for (auto result : vec) {
-        std::cout << result << std::endl;
-    }
-}
+// void printVec(std::vector<double> vec, std::string msg) {
+//     show(msg);
+//     for (auto result : vec) {
+//         std::cout << result << std::endl;
+//     }
+// }
 
 int main() {
     double start = 0.0;
     double end = 1.0;
     double deltax = 0.1;
-    int steps = 5;
+    SchemeType scheme_t = SchemeType::Forward;
 
-    auto actualResults = analyticalSolution(start, end, deltax, fPrime);
-    auto forwardResults = finiteSolution(start, end, deltax, forwardDifference);
-    auto backwardResults =
-        finiteSolution(start, end, deltax, backwardDifference);
-    auto centralResults = finiteSolution(start, end, deltax, centralDifference);
+    Scheme scheme(f, fPrime, deltax, scheme_t);
+    Solution sol(scheme, start, end);
 
-    auto solution = generateSolution(start, end, deltax, 5, centralDifference);
+    auto result = sol.analytical_solution();
 
-    auto first = solution[deltax];
+    for (auto e : result) {
+        std::cout << e << std::endl;
+    }
 
-    for (auto answer : solution) {
-        std::vector<double> result = answer.second;
+    auto forward = sol.finite_solution();
 
-        printVec(result, "Answers");
-        std::cout << "------------------" << std::endl;
+    for (auto e : forward) {
+        std::cout << e << std::endl;
     }
 
     return 0;

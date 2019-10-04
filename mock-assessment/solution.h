@@ -1,5 +1,5 @@
-#include "scheme.h"
 #include <vector>
+#include "scheme.h"
 
 using Vec = std::vector<double>;
 
@@ -7,21 +7,20 @@ using Vec = std::vector<double>;
 #define SOLUTION_H
 
 class Solution {
+   private:
+    Scheme scheme;
+    double start;
+    double end;
+    std::function<double(double, double)> method;
 
-    private:
-        Scheme scheme;
-        double start;
-        double end;
-        std::function<double(double, double)> method;
-
-    public:
+   public:
     Solution(Scheme scheme);
     Solution(Scheme scheme, double start, double end);
 
     void set_end_points(double start, double end);
 
-    Vec analyticalSolution(double start, double end, double deltax);
-    Vec finiteSolution(double start, double end, double deltax);
+    Vec analytical_solution();
+    Vec finite_solution();
 };
 
 #endif
