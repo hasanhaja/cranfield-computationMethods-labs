@@ -8,8 +8,10 @@
 #include <string>
 #include <vector>
 
+// TODO This should be defined elsewhere. Or should be user definable.
 double f(double x) { return 3.0 * (x * x * x) + 2.0 * x + 1.0; }
 
+// TODO This should be defined elsewhere. Or should be user definable.
 double fPrime(double x) { return 9.0 * (x * x) + 2.0; }
 
 double forwardDifference(double x, double deltax) {
