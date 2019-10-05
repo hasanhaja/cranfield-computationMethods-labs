@@ -2,34 +2,31 @@
 
 Scheme::Scheme() {}
 
-Scheme::Scheme(std::function<double(double)> fun,
-               std::function<double(double)> fun_prime) {
-    set_fun_and_fun_prime(fun, fun_prime);
-}
+Scheme::Scheme(Fn fun, Fn fun_prime) { set_fun_and_fun_prime(fun, fun_prime); }
 
-Scheme::Scheme(std::function<double(double)> fun,
-               std::function<double(double)> fun_prime, double deltax,
-               SchemeType scheme_t)
+Scheme::Scheme(Fn fun, Fn fun_prime, double deltax, SchemeType scheme_t)
     : Scheme(fun, fun_prime) {
     set_deltax(deltax);
     set_scheme_t(scheme_t);
 }
-void Scheme::set_fun_and_fun_prime(std::function<double(double)> fun,
-                                   std::function<double(double)> fun_prime) {
+
+void Scheme::set_fun_and_fun_prime(Fn fun, Fn fun_prime) {
     this->fun = fun;
-    this->fun_prime = fun;
+    this->fun_prime = fun_prime;
 }
+
 void Scheme::set_scheme_t(SchemeType scheme_t) { this->scheme_t = scheme_t; }
 
 double Scheme::get_deltax() const { return deltax; }
 
-SchemeType Scheme::get_schemeType() const { return scheme_t; }
+SchemeType Scheme::get_scheme_t() const { return scheme_t; }
 
-std::function<double(double)> Scheme::get_fun() { return fun; }
-std::function<double(double)> Scheme::get_fun_prime() { return fun_prime; }
+Fn Scheme::get_fun() const { return fun; }
 
-std::function<double(double, double)> Scheme::method() {
-    std::function<double(double, double)> method;
+Fn Scheme::get_fun_prime() const { return fun_prime; }
+
+MethodFn Scheme::method() const {
+    MethodFn method;
 
     switch (scheme_t) {
         case SchemeType::Forward:

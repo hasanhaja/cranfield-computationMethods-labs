@@ -48,13 +48,13 @@ int main() {
     Scheme scheme(f, fPrime, deltax, scheme_t);
     Solution sol(scheme, start, end);
 
-    auto result = sol.analytical_solution();
+    auto result = sol.analytical();
 
     for (auto e : result) {
         std::cout << e << std::endl;
     }
 
-    auto forward = sol.finite_solution();
+    auto forward = sol.finite();
 
     for (auto e : forward) {
         std::cout << e << std::endl;
