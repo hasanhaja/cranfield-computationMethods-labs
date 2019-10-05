@@ -4,9 +4,8 @@ Scheme::Scheme() {}
 
 Scheme::Scheme(Fn fun, Fn fun_prime) { set_fun_and_fun_prime(fun, fun_prime); }
 
-Scheme::Scheme(Fn fun, Fn fun_prime, double deltax, SchemeType scheme_t)
+Scheme::Scheme(Fn fun, Fn fun_prime, SchemeType scheme_t)
     : Scheme(fun, fun_prime) {
-    set_deltax(deltax);
     set_scheme_t(scheme_t);
 }
 
@@ -16,8 +15,6 @@ void Scheme::set_fun_and_fun_prime(Fn fun, Fn fun_prime) {
 }
 
 void Scheme::set_scheme_t(SchemeType scheme_t) { this->scheme_t = scheme_t; }
-
-double Scheme::get_deltax() const { return deltax; }
 
 SchemeType Scheme::get_scheme_t() const { return scheme_t; }
 
@@ -42,5 +39,3 @@ MethodFn Scheme::method() const {
 
     return method;
 }
-
-void Scheme::set_deltax(double deltax) { this->deltax = deltax; }

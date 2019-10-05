@@ -1,8 +1,8 @@
 #include <iostream>
 #include <map>
-#include <string>
 
 #include "solution.h"
+#include "utilities.h"
 
 double f(double x) { return 3.0 * (x * x * x) + 2.0 * x + 1.0; }
 
@@ -45,8 +45,8 @@ int main() {
     double deltax = 0.1;
     SchemeType scheme_t = SchemeType::Forward;
 
-    Scheme scheme(f, fPrime, deltax, scheme_t);
-    Solution sol(scheme, start, end);
+    Scheme scheme(f, fPrime, scheme_t);
+    Solution sol(scheme, start, end, deltax);
 
     auto result = sol.analytical();
 
