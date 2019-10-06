@@ -9,24 +9,15 @@ Solution::Solution(Scheme scheme, double start, double end) : Solution(scheme) {
     set_points(start, end);
 }
 
-// This constructor will override the start and end values set by the secondary
-// constructor as well as the deltax values
-Solution::Solution(Scheme scheme, double start, double end, double deltax)
-    : Solution(scheme, start, end) {
-    set_deltax(deltax);
-}
-
 void Solution::set_points(double start, double end) {
     this->start = start;
     this->end = end;
 }
 
-void Solution::set_deltax(double deltax) { this->deltax = deltax; }
-
 void Solution::set_scheme(Scheme scheme) { this->scheme = scheme; }
 
-Vec Solution::analytical() {
-    Vec results;
+Vector Solution::_analytical(double deltax) {
+    Vector results;
     auto method = scheme.get_fun_prime();
 
     for (double x = start; x <= end; x += deltax) {
@@ -37,8 +28,8 @@ Vec Solution::analytical() {
     return results;
 }
 
-Vec Solution::finite() {
-    Vec results;
+Vector Solution::_finite(double deltax) {
+    Vector results;
     auto method = scheme.method();
 
     for (double x = start; x <= end; x += deltax) {
@@ -49,11 +40,21 @@ Vec Solution::finite() {
     return results;
 }
 
-Dataset Solution::generate_for_grid_sizes(Vec sizes) {
+Dataset Solution::generate_for_grid_sizes(Vector sizes, SolutionType solution_type) {
     Dataset dataset;
+    SolutionMethod method;
+
+    switch (solution_type) {
+        case SolutionType::Analytical:
+            method = analytical;
+            break;
+        case SolutionType::Finite:
+            method = finite;
+            break;
+    }
 
     for (auto deltax : sizes) {
-        dataset[deltax] = finite();
+        dataset[deltax] = method(deltax);
     }
 
     return dataset;

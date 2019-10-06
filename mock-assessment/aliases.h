@@ -5,10 +5,11 @@
 #include <map>
 #include <vector>
 
-using Vec = std::vector<double>;
-using Fn = std::function<double(double)>;
-using MethodFn = std::function<double(double, double)>;
-using Dataset = std::map<double, Vec>;
+using Vector = std::vector<double>;
+using Function = std::function<double(double)>;
+using SolutionMethod = std::function<Vector(double)>;
+using SchemeMethod = std::function<double(double, double)>;
+using Dataset = std::map<double, Vector>;
 using AccuracyDataset = std::map<double, double>;
 
 #endif

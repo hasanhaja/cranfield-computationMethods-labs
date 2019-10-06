@@ -9,7 +9,7 @@ void display(double in, double result) {
 
 void show(std::string msg) { std::cout << msg << std::endl; }
 
-void printVec(Vec vec, std::string msg) {
+void printVec(Vector vec, std::string msg) {
     show(msg);
     for (auto result : vec) {
         std::cout << result << std::endl;

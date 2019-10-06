@@ -7,7 +7,7 @@
 namespace util {
 void display(double in, double result);
 void show(std::string msg);
-void printVec(Vec vec, std::string msg);
+void printVec(Vector vec, std::string msg);
 }  // namespace util
 
 #endif

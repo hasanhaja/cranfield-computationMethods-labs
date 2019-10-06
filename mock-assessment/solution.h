@@ -6,24 +6,33 @@
 #include "aliases.h"
 #include "scheme.h"
 
+enum class SolutionType {
+    Analytical,
+    Finite,
+};
+
 class Solution {
    private:
     Scheme scheme;
     double start = 0.0;
     double end = 1.0;
-    double deltax = 0.1;
-    MethodFn method;
+    Vector _analytical(double deltax);
+    Vector _finite(double deltax);
 
    public:
     Solution(Scheme scheme);
     Solution(Scheme scheme, double start, double end);
-    Solution(Scheme scheme, double start, double end, double deltax);
     void set_points(double start, double end);
-    void set_deltax(double deltax);
     void set_scheme(Scheme scheme);
-    Vec analytical();
-    Vec finite();
-    Dataset generate_for_grid_sizes(Vec sizes);
+    Dataset generate_for_grid_sizes(Vector sizes, SolutionType solution_type);
+
+    SolutionMethod finite = [&] (double deltax) -> Vector {
+        return _finite(deltax);
+    };
+    SolutionMethod analytical = [&] (double deltax) -> Vector {
+        return _analytical(deltax);
+    };
+
 };
 
 #endif

@@ -12,17 +12,18 @@ int main() {
     double end = 1.0;
     double deltax = 0.1;
     SchemeType scheme_t = SchemeType::Forward;
+    Vector sizes {0.1, 0.01, 0.001, 0.0001, 0.00001};
 
     Scheme scheme(f, fPrime, scheme_t);
-    Solution sol(scheme);
+    Solution solution(scheme);
 
-    auto result = sol.analytical();
+    auto result = solution.analytical();
 
     for (auto e : result) {
         std::cout << e << std::endl;
     }
 
-    auto forward = sol.finite();
+    auto forward = solution.finite();
 
     for (auto e : forward) {
         std::cout << e << std::endl;
