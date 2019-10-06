@@ -1,16 +1,17 @@
+#ifndef SOLUTION_H
+#define SOLUTION_H
+
+#include <map>
 #include <vector>
 #include "aliases.h"
 #include "scheme.h"
 
-#ifndef SOLUTION_H
-#define SOLUTION_H
-
 class Solution {
    private:
     Scheme scheme;
-    double start;
-    double end;
-    double deltax;
+    double start = 0.0;
+    double end = 1.0;
+    double deltax = 0.1;
     MethodFn method;
 
    public:
@@ -22,6 +23,7 @@ class Solution {
     void set_scheme(Scheme scheme);
     Vec analytical();
     Vec finite();
+    Dataset generate_for_grid_sizes(Vec sizes);
 };
 
 #endif

@@ -1,11 +1,7 @@
 #include "solution.h"
 
 // Default constructor
-Solution::Solution(Scheme scheme) {
-    set_scheme(scheme);
-    set_points(0.0, 1.0);
-    set_deltax(0.1);
-}
+Solution::Solution(Scheme scheme) { set_scheme(scheme); }
 
 // This constructor will override the start and end values set by the default
 // constructor
@@ -51,4 +47,14 @@ Vec Solution::finite() {
     }
 
     return results;
+}
+
+Dataset Solution::generate_for_grid_sizes(Vec sizes) {
+    Dataset dataset;
+
+    for (auto deltax : sizes) {
+        dataset[deltax] = finite();
+    }
+
+    return dataset;
 }

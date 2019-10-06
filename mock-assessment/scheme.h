@@ -1,7 +1,7 @@
-#include "aliases.h"
-
 #ifndef SCHEME_H
 #define SCHEME_H
+
+#include "aliases.h"
 
 enum class SchemeType {
     Forward,
