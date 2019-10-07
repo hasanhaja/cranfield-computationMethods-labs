@@ -3,7 +3,7 @@
 
 #include <map>
 #include "aliases.h"
-
+// TODO Norms for error rather than error for every single point.
 class Accuracy {
    private:
     Dataset analytical_solution;
