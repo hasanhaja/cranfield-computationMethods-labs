@@ -18,10 +18,6 @@ void Scheme::set_scheme_t(SchemeType scheme_t) { this->scheme_t = scheme_t; }
 
 SchemeType Scheme::get_scheme_t() const { return scheme_t; }
 
-Function Scheme::get_fun() const { return fun; }
-
-Function Scheme::get_fun_prime() const { return fun_prime; }
-
 SchemeMethod Scheme::method() const {
     SchemeMethod method;
 
@@ -38,4 +34,8 @@ SchemeMethod Scheme::method() const {
     }
 
     return method;
+}
+
+SchemeMethod Scheme::analytical() const {
+    return _analytical;
 }

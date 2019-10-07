@@ -22,11 +22,14 @@ class Scheme {
     void set_fun_and_fun_prime(Function fun, Function fun_prime);
     void set_scheme_t(SchemeType scheme_t);
     SchemeType get_scheme_t() const;
-    Function get_fun() const;
-    Function get_fun_prime() const;
     SchemeMethod method() const;
+    SchemeMethod analytical() const;
 
    protected:
+    SchemeMethod _analytical = [&](double x, double _) -> double {
+        return fun_prime(x);
+    };
+
     SchemeMethod forward_difference = [&](double x, double deltax) -> double {
         return (fun(x + deltax) - fun(x)) / deltax;
     };

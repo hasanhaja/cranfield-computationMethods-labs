@@ -16,21 +16,18 @@ void Solution::set_points(double start, double end) {
 
 void Solution::set_scheme(Scheme scheme) { this->scheme = scheme; }
 
-Vector Solution::_analytical(double deltax) {
+Vector Solution::_compute(double deltax, SolutionType solution_type) {
     Vector results;
-    auto method = scheme.get_fun_prime();
+    SchemeMethod method;
 
-    for (double x = start; x <= end; x += deltax) {
-        double result = method(x);
-        results.push_back(result);
+    switch (solution_type) {
+        case SolutionType::Analytical:
+            method = scheme.analytical();
+            break;
+        case SolutionType::Finite:
+            method = scheme.method();
+            break;
     }
-
-    return results;
-}
-
-Vector Solution::_finite(double deltax) {
-    Vector results;
-    auto method = scheme.method();
 
     for (double x = start; x <= end; x += deltax) {
         double result = method(x, deltax);
@@ -42,19 +39,9 @@ Vector Solution::_finite(double deltax) {
 
 Dataset Solution::generate_for_grid_sizes(Vector sizes, SolutionType solution_type) {
     Dataset dataset;
-    SolutionMethod method;
-
-    switch (solution_type) {
-        case SolutionType::Analytical:
-            method = analytical;
-            break;
-        case SolutionType::Finite:
-            method = finite;
-            break;
-    }
 
     for (auto deltax : sizes) {
-        dataset[deltax] = method(deltax);
+        dataset[deltax] = compute(deltax, solution_type);
     }
 
     return dataset;

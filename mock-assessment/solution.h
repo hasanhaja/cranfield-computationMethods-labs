@@ -16,8 +16,7 @@ class Solution {
     Scheme scheme;
     double start = 0.0;
     double end = 1.0;
-    Vector _analytical(double deltax);
-    Vector _finite(double deltax);
+    Vector _compute(double deltax, SolutionType solution_type);
 
    public:
     Solution(Scheme scheme);
@@ -26,11 +25,8 @@ class Solution {
     void set_scheme(Scheme scheme);
     Dataset generate_for_grid_sizes(Vector sizes, SolutionType solution_type);
 
-    SolutionMethod finite = [&] (double deltax) -> Vector {
-        return _finite(deltax);
-    };
-    SolutionMethod analytical = [&] (double deltax) -> Vector {
-        return _analytical(deltax);
+    SolutionMethod compute = [&] (double deltax, SolutionType solution_type) -> Vector {
+        return _compute(deltax, solution_type);
     };
 
 };
