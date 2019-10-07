@@ -1,3 +1,4 @@
 *.out
 mock
-/cmake-build-debug/
+/mock-assessment/cmake-build-debug/
+/cmake-build-debug
