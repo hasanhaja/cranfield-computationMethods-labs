@@ -8,7 +8,6 @@ include_directories(..)
 include_directories(.)
 
 add_executable(cranfield_computationalMethods_labs
-        #[[lab1/lab1.cpp]]
         accuracy.cpp
         accuracy.h
         aliases.h
@@ -19,4 +18,5 @@ add_executable(cranfield_computationalMethods_labs
         solution.h
         utilities.cpp
         utilities.h
-        #[[README.md]])
+        solutiontype.h
+        schemetype.h)

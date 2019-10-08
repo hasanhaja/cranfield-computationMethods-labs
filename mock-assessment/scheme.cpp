@@ -5,7 +5,7 @@ Scheme::Scheme() {}
 Scheme::Scheme(Function fun, Function fun_prime) { set_fun_and_fun_prime(fun, fun_prime); }
 
 Scheme::Scheme(Function fun, Function fun_prime, SchemeType scheme_t)
-    : Scheme(fun, fun_prime) {
+    : Scheme(std::move(fun), std::move(fun_prime)) {
     set_scheme_t(scheme_t);
 }
 

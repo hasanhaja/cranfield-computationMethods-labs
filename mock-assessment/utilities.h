@@ -5,9 +5,11 @@
 #include "aliases.h"
 
 namespace util {
-void display(double in, double result);
-void show(std::string msg);
-void printVec(Vector vec, std::string msg);
+    void display(double in, double result);
+    void show(std::string msg);
+    void printVec(Vector vec, std::string msg);
+    double l1_norm(Vector x);
+    double l2_norm(Vector x);
 }  // namespace util
 
-#endif
+#endif  //UTILITIES_H

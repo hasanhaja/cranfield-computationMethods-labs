@@ -2,12 +2,7 @@
 #define SCHEME_H
 
 #include "aliases.h"
-
-enum class SchemeType {
-    Forward,
-    Backward,
-    Central,
-};
+#include "schemetype.h"
 
 class Scheme {
    private:
@@ -43,4 +38,4 @@ class Scheme {
     };
 };
 
-#endif
+#endif  //SCHEME_H

@@ -1,7 +1,7 @@
 #include <iostream>
-#include <map>
 #include "solution.h"
-#include "utilities.h"
+#include "accuracy.h"
+#include "aliases.h"
 
 double f(double x) { return 3.0 * (x * x * x) + 2.0 * x + 1.0; }
 
@@ -17,13 +17,14 @@ int main() {
     Scheme scheme(f, fPrime, scheme_t);
     Solution solution(scheme);
 
-    auto result = solution.analytical();
+    auto result = solution.compute(deltax, SolutionType::Analytical);
+    auto forward = solution.compute(deltax, SolutionType::Finite);
+    auto analytical = solution.generate_data_for_grid_sizes(sizes, SolutionType::Analytical);
+    auto finite = solution.generate_data_for_grid_sizes(sizes, SolutionType::Finite);
 
     for (auto e : result) {
         std::cout << e << std::endl;
     }
-
-    auto forward = solution.finite();
 
     for (auto e : forward) {
         std::cout << e << std::endl;

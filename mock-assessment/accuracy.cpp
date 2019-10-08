@@ -10,5 +10,12 @@ Accuracy::Accuracy(Dataset analytical_solution, Dataset numerical_solution) {
 }
 
 AccuracyDataset Accuracy::solution_accuracy() {
-    // TODO implement
+    /*
+     * dataset would look like: [0.1: Vector{values}, 0.01: Vector{values} ...]
+     */
+    AccuracyDataset accuracyDataset;
+
+    // TODO
+
+    return accuracyDataset;
 }

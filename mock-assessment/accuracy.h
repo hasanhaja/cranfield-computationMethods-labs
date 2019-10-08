@@ -16,4 +16,4 @@ class Accuracy {
     AccuracyDataset solution_accuracy();
 };
 
-#endif
+#endif  //ACCURACY_H
