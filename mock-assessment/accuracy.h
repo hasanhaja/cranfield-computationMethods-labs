@@ -9,11 +9,12 @@ class Accuracy {
     Dataset analytical_solution;
     Dataset numerical_solution;
 
-    double accuracy(double calculated, double analytical);
+    static double accuracy(double calculated, double analytical);
 
    public:
     Accuracy(Dataset analytical_solution, Dataset numerical_solution);
-    AccuracyDataset solution_accuracy();
+    static std::optional<Vector> compare(Vector numerical, Vector analytical);
+    Dataset compute();
 };
 
 #endif  //ACCURACY_H
