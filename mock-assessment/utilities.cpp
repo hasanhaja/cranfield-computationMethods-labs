@@ -45,7 +45,7 @@ namespace util {
             return s;
         }
 
-        void display::print_dataset(Dataset data) {
+        void print_dataset(Dataset data) {
             for (auto e : data) {
                 auto deltax = e.first;
                 auto vec = e.second;

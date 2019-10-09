@@ -9,26 +9,14 @@ double f(double x) { return 3.0 * (x * x * x) + 2.0 * x + 1.0; }
 double fPrime(double x) { return 9.0 * (x * x) + 2.0; }
 
 int main() {
-    double start = 0.0;
-    double end = 1.0;
-    double deltax = 0.1;
-    SchemeType scheme_t = SchemeType::Forward;
+    SchemeType scheme_t = SchemeType::Central;
     Vector sizes {0.1, 0.01, 0.001, 0.0001, 0.00001};
-//    Vector sizes {0.1, 0.01};
-//    Vector sizes {0.1};
-
 
     Scheme scheme(f, fPrime, scheme_t);
     Solution solution(scheme);
 
-    auto result = solution.compute(deltax, SolutionType::Analytical);
-    auto forward = solution.compute(deltax, SolutionType::Finite);
-
     auto analytical = solution.generate_data_for_grid_sizes(sizes, SolutionType::Analytical);
     auto finite = solution.generate_data_for_grid_sizes(sizes, SolutionType::Finite);
-
-//    util::display::print_dataset(analytical);
-//    util::display::print_dataset(finite);
 
     Accuracy accuracy(finite, analytical);
     auto acc_dataset = accuracy.compute();

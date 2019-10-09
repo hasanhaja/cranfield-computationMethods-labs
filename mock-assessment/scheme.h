@@ -16,7 +16,6 @@ class Scheme {
     Scheme(Function fun, Function fun_prime, SchemeType scheme_t);
     void set_fun_and_fun_prime(Function fun, Function fun_prime);
     void set_scheme_t(SchemeType scheme_t);
-    SchemeType get_scheme_t() const;
     SchemeMethod method() const;
     SchemeMethod analytical() const;
 

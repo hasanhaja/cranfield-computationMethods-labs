@@ -4,7 +4,6 @@ project(cranfield_computationalMethods_labs)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(..)
-#[[include_directories(lab1)]]
 include_directories(.)
 
 add_executable(cranfield_computationalMethods_labs

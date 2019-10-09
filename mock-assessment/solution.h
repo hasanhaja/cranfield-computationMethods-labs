@@ -22,5 +22,4 @@ class Solution {
     Dataset generate_data_for_grid_sizes(const Vector& sizes, SolutionType solution_type);
 
 };
-
 #endif //SOLUTION_H

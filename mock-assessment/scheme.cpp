@@ -16,8 +16,6 @@ void Scheme::set_fun_and_fun_prime(Function fun, Function fun_prime) {
 
 void Scheme::set_scheme_t(SchemeType scheme_t) { this->scheme_t = scheme_t; }
 
-SchemeType Scheme::get_scheme_t() const { return scheme_t; }
-
 SchemeMethod Scheme::method() const {
     SchemeMethod method;
 
