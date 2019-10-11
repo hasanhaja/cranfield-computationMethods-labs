@@ -1,7 +1,10 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 const double ALPHA = 1.0;
+
+using Vector = std::vector<std::vector<double>>;
 
 double numeric_viscosity(double alpha, double deltax, double deltat) {
     double cfl = (alpha * deltat) / deltax;
@@ -30,44 +33,46 @@ double analytical_f1(double x, double t) {
 /*
  * Initial and boundary conditions
  */
-
-double initial_condition(double x) {
+double initial_condition1(double x) {
     return analytical_f0(x, 0.0);
 }
 
-double boundary_condition(double x) {
+double initial_condition2(double x) {
     return analytical_f1(x, 0.0);
 }
 
-double forward(double param) {
-    return 0.0;
-}
+Vector upwind() {
+    Vector solution;
 
-double backward(double param) {
-    return 0.0;
-}
+    /*
+     * Boundaries
+     */
+    double left = -40.0;
+    double right = 40.0;
+    double points = 100.0;
 
-double central(double param) {
-    return 0.0;
-}
+    /*
+     * boundary conditions
+     */
 
-double upwind(double space, double time) {
-    forward(space);
-    backward(time);
-}
+    double grid_size = fabs(left) + fabs(right);
+    double grid_spacing = grid_size / points;
 
-/*
- * Would be better if it took an Enum as a parameter.
- * Then the if-else can be replaced by switch-case
- */
-double scheme(int space, int time) {
-    if (space == 1 && time == -1) {
-        upwind(0.0, 0.0);
-    } else if (space == 0 && time == 0) {
-        central(0.0);
-    } else {
-        // Do nothing for now
+    double x = left;
+    std::vector<double> initial_values;
+
+    for (int i = 0; i < ceil(points); i++) {
+        initial_values.push_back(initial_condition1(x));
+        x += grid_spacing;
     }
+
+    double in1 = initial_condition1(x);
+
+    for (int i = 0; i <= 100; i++) {
+
+    }
+
+    return solution;
 }
 
 int main() {
